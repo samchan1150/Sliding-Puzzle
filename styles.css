@@ -41,3 +41,15 @@ button {
     padding: 5px 10px;
     font-size: 1em;
 }
+
+.status {
+    margin: 20px;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.status p {
+    margin: 5px;
+}

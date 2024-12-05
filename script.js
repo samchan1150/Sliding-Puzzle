@@ -1,4 +1,10 @@
 // script.js
+
+let moveCount = 0;
+let timeElapsed = 0;
+let timerInterval;
+
+
 document.getElementById('start-game').addEventListener('click', startGame);
 
 function startGame() {
@@ -8,6 +14,22 @@ function startGame() {
         alert('Please enter a grid size between 3 and 5.');
         return;
     }
+
+    // Reset move count and time
+    moveCount = 0;
+    timeElapsed = 0;
+    document.getElementById('move-counter').textContent = moveCount;
+    document.getElementById('timer').textContent = timeElapsed;
+
+    // Clear any existing timer
+    clearInterval(timerInterval);
+
+    // Start the timer
+    timerInterval = setInterval(() => {
+        timeElapsed++;
+        document.getElementById('timer').textContent = timeElapsed;
+    }, 1000);
+
     createPuzzle(gridSize);
 }
 
@@ -56,7 +78,16 @@ function moveTile(index, size) {
     if (isAdjacent(index, emptyIndex, size)) {
         // Swap the clicked tile with the empty tile
         swapTiles(index, emptyIndex);
+
+        // Increment move count
+        moveCount++;
+        document.getElementById('move-counter').textContent = moveCount;
+
         if (checkWin(tiles, size)) {
+            // Stop the timer
+            clearInterval(timerInterval);
+
+            // Show a congratulatory message 
             setTimeout(() => alert('Congratulations! You solved the puzzle!'), 100);
         }
     }
